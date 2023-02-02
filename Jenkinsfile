@@ -3,14 +3,14 @@ pipeline {
     stages {
         stage('Pull Code From GitHub') {
             steps {
-			    git branch: 'dev', url: 'https://github.com/krishnaraj3/multibranchkube.git'
+			    'git url: https://github.com/krishnaraj3/multibranchkube.git'
             }
         }
         stage('Build the Docker image') {
             steps {
-                sh 'sudo docker build -t multibranchkube /var/lib/jenkins/workspace/multibranchkube_dev'
-                sh 'sudo docker tag multibranchkube kamalraj03/multibranchkube:latest'
-                sh 'sudo docker tag multibranchkube kamalraj03/multibranchkube:${BUILD_NUMBER}'
+                sh 'sudo docker build -t multibranchkube_master /var/lib/jenkins/workspace/multibranchkube_master'
+                sh 'sudo docker tag multibranchkube_master kamalraj03/multibranchkube:latest'
+                sh 'sudo docker tag multibranchkube_master kamalraj03/multibranchkube:${BUILD_NUMBER}'
             }
         }
         stage('Push the Docker image') {
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy on Kubernetes') {
             steps {
-                sh 'sudo kubectl apply -f /var/lib/jenkins/workspace/multibranchkube_dev/pod.yaml'
+                sh 'sudo kubectl apply -f /var/lib/jenkins/workspace/multibranchkube_master/pod.yaml'
                 sh 'sudo kubectl rollout restart deployment loadbalancer-pod'
             }
         }
