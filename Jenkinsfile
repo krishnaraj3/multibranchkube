@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Pull Code From GitHub') {
             steps {
-			    'git url: https://github.com/krishnaraj3/multibranchkube.git'
+			    git 'https://github.com/krishnaraj3/multibranchkube.git'
             }
         }
         stage('Build the Docker image') {
