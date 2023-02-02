@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build the Docker image') {
             steps {
-                sh 'sudo docker build -t multibranchkube /var/lib/jenkins/workspace/multibranchkube_Test-1'
+                sh 'sudo docker build -t multibranchkube /var/lib/jenkins/workspace/multibranchkube_dev'
                 sh 'sudo docker tag multibranchkube kamalraj03/multibranchkube:latest'
                 sh 'sudo docker tag multibranchkube kamalraj03/multibranchkube:${BUILD_NUMBER}'
             }
