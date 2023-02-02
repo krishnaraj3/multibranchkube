@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Pull Code From GitHub') {
             steps {
-                git branch: 'Test-1', url: 'https://github.com/krishnaraj3/multibranchkube.git'
+			    git branch: 'dev', url: 'https://github.com/krishnaraj3/multibranchkube.git'
             }
         }
         stage('Build the Docker image') {
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy on Kubernetes') {
             steps {
-                sh 'sudo kubectl apply -f /var/lib/jenkins/workspace/multibranchkube_Test-1/pod.yaml'
+                sh 'sudo kubectl apply -f /var/lib/jenkins/workspace/multibranchkube_dev/pod.yaml'
                 sh 'sudo kubectl rollout restart deployment loadbalancer-pod'
             }
         }
